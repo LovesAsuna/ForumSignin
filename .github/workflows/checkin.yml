@@ -7,10 +7,10 @@ on:
 
 jobs:
   checkin:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Sync with upstream
         if: github.repository != 'LovesAsuna/ForumSignin'
@@ -23,17 +23,12 @@ jobs:
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
           upstream_pull_args: '-s recursive -Xtheirs'
 
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-go@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
+          go-version: 1.18
 
       - name: Checkin
         env:
           ZDFX_COOKIE: ${{ secrets.ZDFX_COOKIE }}
           HUAHUO_COOKIE: ${{ secrets.HUAHUO_COOKIE }}
-        run: ./gradlew run --no-daemon
+        run: go run .
