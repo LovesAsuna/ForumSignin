@@ -37,6 +37,7 @@ func NewHuaHuoClient() Sign {
 	if len(cookie) == 0 {
 		return NewNoCookieClient(name)
 	}
+	Debug(name, "cookie:", cookie)
 	client := huahuo{
 		name,
 		baseUrl,

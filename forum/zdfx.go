@@ -41,6 +41,7 @@ func NewZdfxClient() Sign {
 	if len(cookie) == 0 {
 		return NewNoCookieClient(name)
 	}
+	Debug(name, "cookie:", cookie)
 	client := Zdfx{
 		name,
 		baseUrl,

@@ -1,5 +1,11 @@
 package forum
 
+import (
+	"log"
+	"os"
+	"strconv"
+)
+
 type Sign interface {
 	Name() string
 
@@ -37,4 +43,22 @@ func (client *nocookieclient) Sign() (<-chan string, bool) {
 	c <- client.name + "Cookie未设置！"
 	close(c)
 	return c, false
+}
+
+var debug = func() bool {
+	flag := os.Getenv("DEBUG")
+	if len(flag) == 0 {
+		return false
+	}
+	debug, err := strconv.ParseBool(flag)
+	if err != nil {
+		return false
+	}
+	return debug
+}()
+
+func Debug(v ...any) {
+	if debug {
+		log.Println(v...)
+	}
 }
