@@ -35,13 +35,13 @@ func (zdfx *Zdfx) Cookie() string {
 }
 
 func NewZdfxClient() Sign {
-	cookie := os.Getenv("HUAHUO_COOKIE")
+	cookie := os.Getenv("ZDFX_COOKIE")
 	name := "终点"
 	baseUrl := "https://bbs.zdfx.net/"
 	if len(cookie) == 0 {
 		return NewNoCookieClient(name)
 	}
-	client := huahuo{
+	client := Zdfx{
 		name,
 		baseUrl,
 		cookie,
